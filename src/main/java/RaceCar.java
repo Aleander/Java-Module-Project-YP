@@ -21,4 +21,12 @@ public class RaceCar {
     //По условиям скорость автомобиля и время гонки целые числа, поэтому возвращаем целое число.
         return speedCar * timeRace;
     }
+
+    public int getSpeedCar() {
+        return speedCar;
+    }
+
+    public int getTimeRace() {
+        return timeRace;
+    }
 }

@@ -6,11 +6,18 @@ class RaceManager {
 
     // Метод для запуска процесса гонки
     public void run() {
+        int numberWinnerCar=0; // Хранит номер победившей машины
         showHelloMessage();
-        for (int i = 0; i<3; i++){ // Заполняем массив автомобилями
-            notifyStartInput(i+1);
+        for (int i = 0; i < 3; i++) { // Заполняем массив автомобилями
+            notifyStartInput(i + 1);
             raceCars[i] = new RaceCar(inputNameCar(), inputSpeedCar());
         }
+        for (int i = 0; i < 3; i++) { // Определяем победителя
+            if (raceCars[i].getDistanceCar() >= raceCars[numberWinnerCar].getDistanceCar()){
+               numberWinnerCar=i;
+            }
+        }
+        showWinnerCar(numberWinnerCar, raceCars[numberWinnerCar]);
     }
 
     // Метод выводящий приветственное сообщение
@@ -40,7 +47,7 @@ class RaceManager {
 
     // Метод для получения скорости автомобиля от пользователя
     private int inputSpeedCar() {
-        System.out.println("Введите скорость автомобиля (целое число) от 1 до 250:");
+        System.out.println("Введите скорость автомобиля (целое число) от 1 до 250 км/ч:");
         int speedCar; // Скорость автомобиля - может быть только целым числом от 1 до 250
 
         while (true) { // Цикл будет работать до ввода корректного значения скорости
@@ -55,10 +62,24 @@ class RaceManager {
                 break; // Значение скорости корректно - выходим из цикла
 
             } catch (Exception e) { // Ловим ошибки. Выводим сообщение
-                System.out.println("Скорость автомобиля должна быть целым числом от 1 до 250");
+                System.out.println("Скорость автомобиля должна быть целым числом от 1 до 250 км/ч");
                 System.out.println("Введите скорость автомобиля ещё раз:");
             }
         }
         return speedCar; // Передаем скорость автомобиля из метода
+    }
+
+    // Метод возвращающий данные победителя.
+    // В случае подачи на вхд Null будут проблемы.
+    // Но организация проверки усложнит логику - оставил так
+    private void showWinnerCar(int numberWinnerCar, RaceCar winnerCar) {
+        System.out.println("_____________________________________________");
+        System.out.println("В гонке «24 часа Ле-Мана» победил автомобиль № " +
+                (int)(numberWinnerCar+1)); // Преобразовал строку в скобках в int
+        System.out.println("Название автомобиля: " + winnerCar.getNameCar());
+        System.out.println("Скорость автомобиля: " + winnerCar.getSpeedCar() + " км/ч");
+        System.out.println("За время " + winnerCar.getTimeRace() + " ч победитель проехал " +
+                winnerCar.getDistanceCar() + " км");
+        System.out.println("_____________________________________________");
     }
 }
