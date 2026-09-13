@@ -3,21 +3,31 @@ import java.util.Scanner;
 // В данном классе организована логика работы программы
 class RaceManager {
     private RaceCar[] raceCars = new RaceCar[3]; // Массив на три автомобиля (из условия задачи)
+    // Массив позволяет жестко привязаться к порядковому номеру, таким образом даже если автомобили
+    //будут с одинаковыми названиями, их можно будет идентифицировать.
 
     // Метод для запуска процесса гонки
     public void run() {
-        int numberWinnerCar=0; // Хранит номер победившей машины
+        int distanceWinnerCar = 0; // Хранит расстояние пройденное победителем (победителями)
         showHelloMessage();
         for (int i = 0; i < 3; i++) { // Заполняем массив автомобилями
             notifyStartInput(i + 1);
             raceCars[i] = new RaceCar(inputNameCar(), inputSpeedCar());
         }
-        for (int i = 0; i < 3; i++) { // Определяем победителя
-            if (raceCars[i].getDistanceCar() >= raceCars[numberWinnerCar].getDistanceCar()){
-               numberWinnerCar=i;
+        for (int i = 0; i < 3; i++) { // Определяем расстояние пройденное победителем (победителями)
+            if (raceCars[i].getDistanceCar() > distanceWinnerCar) {
+                distanceWinnerCar = raceCars[i].getDistanceCar();
             }
         }
-        showWinnerCar(numberWinnerCar, raceCars[numberWinnerCar]);
+        announceResults();
+        for (int i = 0; i < 3; i++) { // Определяем победителя (победителей)
+            // для этого сравниваем расстояние пройденное автомобилем с победным расстоянием
+            // Таким образом, победителей может быть больше, чем один
+            if (raceCars[i].getDistanceCar() == distanceWinnerCar) {
+                showWinnerCar(i, raceCars[i]);
+            }
+        }
+
     }
 
     // Метод выводящий приветственное сообщение
@@ -27,6 +37,13 @@ class RaceManager {
         System.out.println("_____________________________________________");
         System.out.println();
         System.out.println("Вам необходимо ввести данные трёх автомобилей");
+        System.out.println();
+    }
+    // Сообщаем, что далее выведем результат
+    private void announceResults() {
+        System.out.println("_____________________________________________");
+        System.out.println("В гонке «24 часа Ле-Мана» победил (победили):");
+        System.out.println("_____________________________________________");
         System.out.println();
     }
 
@@ -73,9 +90,7 @@ class RaceManager {
     // В случае подачи на вхд Null будут проблемы.
     // Но организация проверки усложнит логику - оставил так
     private void showWinnerCar(int numberWinnerCar, RaceCar winnerCar) {
-        System.out.println("_____________________________________________");
-        System.out.println("В гонке «24 часа Ле-Мана» победил автомобиль № " +
-                (int)(numberWinnerCar+1)); // Преобразовал строку в скобках в int
+        System.out.println("Автомобиль № " + (numberWinnerCar + 1)); // Преобразовал строку в скобках в int
         System.out.println("Название автомобиля: " + winnerCar.getNameCar());
         System.out.println("Скорость автомобиля: " + winnerCar.getSpeedCar() + " км/ч");
         System.out.println("За время " + winnerCar.getTimeRace() + " ч победитель проехал " +
