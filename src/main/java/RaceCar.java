@@ -17,7 +17,7 @@ public class RaceCar {
         return nameCar;
     }
 
-    public int distanceCar() { // Вычисляем и возвращаем пройденный за гонку путь
+    public int getDistanceCar() { // Вычисляем и возвращаем пройденный за гонку путь
     //По условиям скорость автомобиля и время гонки целые числа, поэтому возвращаем целое число.
         return speedCar * timeRace;
     }
