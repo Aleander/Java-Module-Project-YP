@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+// В данном классе организована логика работы программы
 class RaceManager {
     int i = 0;
 
@@ -11,10 +11,9 @@ class RaceManager {
     // Метод для получения скорости автомобиля от пользователя
     public int inputSpeedCar() {
         System.out.println("Введите скорость автомобиля (целое число)");
-        int speedCar = 0; // Скорость автомобиля - может быть только целым числом от 0 до 250
-        boolean isInputCorrect = false; //Если true - ввод скорости прошел успешно
+        int speedCar; // Скорость автомобиля - может быть только целым числом от 1 до 250
 
-        while (!isInputCorrect) { // Цикл будет работать до ввода корректного значения скорости
+        while (true) { // Цикл будет работать до ввода корректного значения скорости
             Scanner scanner = new Scanner(System.in);
 
             try { // Проверяем корректность ввода скорости
@@ -22,7 +21,7 @@ class RaceManager {
                 if (speedCar < 1 || speedCar > 250) throw new IllegalArgumentException(); // Если
                 // скорость вне допустимого диапазона - бросаем ошибку
                 System.out.println("Скорость автомобиля введена успешно");
-                isInputCorrect = true; // Значение скорости корректно - выходим из цикла
+                break; // Значение скорости корректно - выходим из цикла
 
             } catch (Exception e) { // Ловим ошибки. Выводим сообщение
                 System.out.println("Скорость автомобиля должна быть целым числом от 1 до 250");
