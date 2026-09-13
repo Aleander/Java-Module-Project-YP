@@ -2,16 +2,15 @@ import java.util.Scanner;
 
 // В данном классе организована логика работы программы
 class RaceManager {
-    int i = 0;
-    String s;
-    private RaceCar[] raceCars = new RaceCar[3]; // Массив на три автомобиля
+    private RaceCar[] raceCars = new RaceCar[3]; // Массив на три автомобиля (из условия задачи)
 
     // Метод для запуска процесса гонки
     public void run() {
         showHelloMessage();
-        notifyStartInput(1);
-        s = inputNameCar();
-        i = inputSpeedCar();
+        for (int i = 0; i<3; i++){ // Заполняем массив автомобилями
+            notifyStartInput(i+1);
+            raceCars[i] = new RaceCar(inputNameCar(), inputSpeedCar());
+        }
     }
 
     // Метод выводящий приветственное сообщение
