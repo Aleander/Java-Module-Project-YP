@@ -3,10 +3,10 @@ import java.util.Scanner;
 // В данном классе организована логика работы программы
 
 class RaceManager {
-    Scanner scanner = new Scanner(System.in);
-    private final int minSpeedCar = 1;
-    private final int maxSpeedCar = 250;
-    private RaceCar[] raceCars = new RaceCar[3]; // Массив на три автомобиля (из условия задачи)
+    Scanner scanner = new Scanner(System.in); // Для обработки ввода
+    private final int minSpeedCar = 1; //Минимальная скорость доступная для ввода
+    private final int maxSpeedCar = 250; // Максимальная скорость доступная для ввода
+    private final RaceCar[] raceCars = new RaceCar[3]; // Массив на три автомобиля (из условия задачи)
     // Массив позволяет жестко привязаться к порядковому номеру, таким образом даже если автомобили
     //будут с одинаковыми названиями, их можно будет идентифицировать.
 
@@ -62,8 +62,8 @@ class RaceManager {
         String nameCar; // Переменная в которую получаем названия автомобиля
         System.out.println("Введите название автомобиля:");
         while (true) { // Цикл будет работать до ввода корректного значения скорости
-            nameCar = scanner.nextLine(); // Получаем название автомобиля
-            if (nameCar.trim().isEmpty()) {
+            nameCar = scanner.nextLine().trim(); // Получаем название автомобиля без пробелов по краям
+            if (nameCar.isEmpty()) {
                 System.out.println("Название автомобиля не введено");
                 System.out.println("Попробуйте еще раз:");
             } else {
@@ -82,8 +82,8 @@ class RaceManager {
         while (true) { // Цикл будет работать до ввода корректного значения скорости
 
             try { // Проверяем корректность ввода скорости
-                speedCar = scanner.nextInt(); // Если скорость не целое число - будет ошибка
-                scanner.nextLine();
+                speedCar = Integer.parseInt( scanner.nextLine().trim()); // Если скорость не целое число - будет ошибка
+                // строка лояльна к пробелам в начале и конце строки
                 if (speedCar < minSpeedCar || speedCar > maxSpeedCar) {
                     throw new IllegalArgumentException(); // Если скорость вне допустимого диапазона - бросаем ошибку
                 }
