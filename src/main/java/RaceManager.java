@@ -1,7 +1,11 @@
 import java.util.Scanner;
 
 // В данном классе организована логика работы программы
+
 class RaceManager {
+    Scanner scanner = new Scanner(System.in);
+    private final int minSpeedCar = 1;
+    private final int maxSpeedCar = 250;
     private RaceCar[] raceCars = new RaceCar[3]; // Массив на три автомобиля (из условия задачи)
     // Массив позволяет жестко привязаться к порядковому номеру, таким образом даже если автомобили
     //будут с одинаковыми названиями, их можно будет идентифицировать.
@@ -37,8 +41,8 @@ class RaceManager {
         System.out.println("_____________________________________________");
         System.out.println();
         System.out.println("Вам необходимо ввести данные трёх автомобилей");
-        System.out.println();
     }
+
     // Сообщаем, что далее выведем результат
     private void announceResults() {
         System.out.println("_____________________________________________");
@@ -49,16 +53,24 @@ class RaceManager {
 
     // Метод уведомляющий о начале ввода данных на автомобиль с конкретным порядковым номером
     private void notifyStartInput(int numberCar) {
+        System.out.println();
         System.out.println("Запрос данных автомобиля № " + numberCar);
         System.out.println();
     }
 
     private String inputNameCar() {
+        String nameCar; // Переменная в которую получаем названия автомобиля
         System.out.println("Введите название автомобиля:");
-        Scanner scanner = new Scanner(System.in);
-        String nameCar = scanner.next(); // Получаем название автомобиля
+        while (true) { // Цикл будет работать до ввода корректного значения скорости
+            nameCar = scanner.nextLine(); // Получаем название автомобиля
+            if (nameCar.trim().isEmpty()) {
+                System.out.println("Название автомобиля не введено");
+                System.out.println("Попробуйте еще раз:");
+            } else {
+                break;
+            }
+        }
         System.out.println("Название автомобиля введено успешно");
-        System.out.println();
         return nameCar; // Возвращаем название из метода
     }
 
@@ -68,14 +80,14 @@ class RaceManager {
         int speedCar; // Скорость автомобиля - может быть только целым числом от 1 до 250
 
         while (true) { // Цикл будет работать до ввода корректного значения скорости
-            Scanner scanner = new Scanner(System.in);
 
             try { // Проверяем корректность ввода скорости
                 speedCar = scanner.nextInt(); // Если скорость не целое число - будет ошибка
-                if (speedCar < 1 || speedCar > 250) throw new IllegalArgumentException(); // Если
-                // скорость вне допустимого диапазона - бросаем ошибку
+                scanner.nextLine();
+                if (speedCar < minSpeedCar || speedCar > maxSpeedCar) {
+                    throw new IllegalArgumentException(); // Если скорость вне допустимого диапазона - бросаем ошибку
+                }
                 System.out.println("Скорость автомобиля введена успешно");
-                System.out.println();
                 break; // Значение скорости корректно - выходим из цикла
 
             } catch (Exception e) { // Ловим ошибки. Выводим сообщение

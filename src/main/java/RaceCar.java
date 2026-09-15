@@ -3,9 +3,9 @@
 //Название, скорость, а также время задаются в конструкторе, переменные не доступны для
 //изменения, получить можно только название автомобиля и пройденное им расстояние.
 public class RaceCar {
-    private final String nameCar; // Название автомобиля - менять нельзя никогда
-    private int speedCar; // Скорость автомобиля (не final на случай расширения возможностей программы)
-    private  int timeRace; // Время гонки (не final на случай расширения возможностей программы)
+    private final String nameCar; // Название автомобиля
+    private final int speedCar; // Скорость автомобиля
+    private final int timeRace; // Время гонки
 
     public RaceCar(String nameCar, int speedCar) { // Создаем машину
         this.nameCar = nameCar;
