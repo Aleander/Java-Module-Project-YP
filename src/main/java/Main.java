@@ -3,6 +3,7 @@ public class Main {
         RaceManager raceManager = new RaceManager();
         raceManager.run();
         //комментарий новый
+        //внесла изменения
     }
 }
 
